@@ -23,8 +23,9 @@ public class HospitalReservationSystem {
             String sql = "INSERT INTO reservations(guest_name,room_number,contact_number) " + "VALUES('" + guestName + "', " + roomNumber + ",'" + contactNumber + " ')";
             try (Statement statement = connection.createStatement()) {
                 int affectedRows = statement.executeUpdate(sql);
+
                 if (affectedRows > 0) {
-                    System.out.println("Reservation successful");
+                    System.out.println("Reservation successful !");
                 } else {
                     System.out.println("Reservation failed");
                 }
@@ -32,7 +33,6 @@ public class HospitalReservationSystem {
 
         } catch (SQLException e) {
             e.printStackTrace();
-
         }
     }
 
@@ -94,7 +94,7 @@ public class HospitalReservationSystem {
         try {
             System.out.println("Enter the reservation ID to update");
             int reservationId = scanner.nextInt();
-            scanner.nextInt();
+            scanner.nextLine();
 
             if (!reservationExists(connection, reservationId)) {
                 System.out.println("Reservation not found for the given Id.");
@@ -134,7 +134,7 @@ public class HospitalReservationSystem {
                     System.out.println("Reservation not found for the given Id.");
                     return;
                 }
-                String sql = "DELETE  FROM reservation WHERE reservation_id =" + reservationId;
+                String sql = "DELETE  FROM reservations WHERE reservation_id =" + reservationId;
                 try (Statement statement = connection.createStatement()) {
                     int affectedRows = statement.executeUpdate(sql);
                     if (affectedRows > 0) {
@@ -166,7 +166,7 @@ public class HospitalReservationSystem {
 
         private static  boolean reservationExists(Connection connection,int reservationId){
         try{
-            String sql="SELECT reservation_id FROM reservation WHERE reservation_id = " +reservationId;
+            String sql="SELECT reservation_id FROM reservations WHERE reservation_id = " +reservationId;
             try(Statement statement=connection.createStatement();
             ResultSet resultSet=statement.executeQuery(sql)){
                 return resultSet.next();
@@ -198,7 +198,7 @@ public class HospitalReservationSystem {
                 System.out.println("2.View Reservation");
                 System.out.println("3.Get room number");
                 System.out.println("4.Update Reservation");
-                System.out.println("4.Delete Reservation");
+                System.out.println("5.Delete Reservation");
                 System.out.println("0.Exit ");
                 System.out.println("Choose an option: ");
                 int choice=scanner.nextInt();
