@@ -73,7 +73,7 @@ public class HospitalReservationSystem {
 
             String sql = "SELECT room_number FROM reservations " +
                     "WHERE reservation_id = " + reservationId +
-                    " AND guest_name + ' " + guestName + " '";
+                    " AND guest_name = ' " + guestName + " '";
             try (Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery(sql)) {
 
@@ -86,7 +86,6 @@ public class HospitalReservationSystem {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-
         }
     }
 
@@ -100,6 +99,7 @@ public class HospitalReservationSystem {
                 System.out.println("Reservation not found for the given Id.");
                 return;
             }
+
             System.out.println("Enter the new guest :");
             String newGuestName = scanner.nextLine();
             System.out.println("Enter the new room number :");
